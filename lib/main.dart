@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/models/product_list.dart';
 import 'package:shop/providers/Counter.dart';
 import 'package:shop/screens/counter_screen.dart';
 import 'package:shop/screens/product_detail_screen.dart';
@@ -12,16 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
-            .copyWith(secondary: Colors.deepOrangeAccent),
-        fontFamily: 'Lato',
+    return ChangeNotifierProvider(
+      create: (_) => ProductList(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
+              .copyWith(secondary: Colors.deepOrangeAccent),
+          fontFamily: 'Lato',
+        ),
+        home: ProductsOverviewScreen(),
+        routes: {
+          AppRoutes.PRODUCT_DETAIL: (context) => const ProductDetailScreen()
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      home: ProductsOverviewScreen(),
-      routes: {AppRoutes.PRODUCT_DETAIL: (context) => const ProductDetailScreen()},
-      debugShowCheckedModeBanner: false,
     );
   }
 }

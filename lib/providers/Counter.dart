@@ -11,7 +11,7 @@ class CounterState {
   void inc() => _value++;
   void dec() => _value--;
   int get value => _value;
-  bool diff({required final CounterState old}) => old._value != _value;
+  bool diff({required final CounterState current}) => current._value != _value;
 }
 
 class CounterProvider extends InheritedWidget {
@@ -25,6 +25,6 @@ class CounterProvider extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant CounterProvider oldWidget) {
-    return oldWidget.state.diff(old: state);
+    return oldWidget.state.diff(current: state);
   }
 }
