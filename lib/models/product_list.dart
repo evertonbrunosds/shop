@@ -17,7 +17,7 @@ class ProductList with ChangeNotifier {
   }
 
   List<Product> get itens => _showFavoriteOnly
-      ? itens.where((product) => product.isFavorite).toList()
+      ? _itens.where((product) => product.isFavorite).toList()
       : [..._itens];
 
 

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product_list.dart';
-import 'package:shop/providers/Counter.dart';
-import 'package:shop/screens/counter_screen.dart';
 import 'package:shop/screens/product_detail_screen.dart';
 import 'package:shop/screens/products_overview_screen.dart';
-import 'package:shop/util/app_routes.dart';
+import 'package:shop/utils/app_routes.dart';
 
 void main() => runApp(const MyApp());
 
