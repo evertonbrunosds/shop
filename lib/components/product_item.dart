@@ -8,7 +8,12 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final Product product = Provider.of<Product>(context, listen: false);
+    final Product product = Provider.of<Product>(
+      context,
+      //POSSIBILITA ATUALIZAR TRECHOS ESPECÍFICOS
+      // DA INTERFACE AO INVÉS DE TODA ELA
+      listen: false,
+    );
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
