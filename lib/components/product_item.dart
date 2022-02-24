@@ -8,7 +8,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final Product product = Provider.of<Product>(context);
+    final Product product = Provider.of<Product>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
@@ -30,11 +30,17 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             backgroundColor: Colors.black87,
-            leading: IconButton(
-              onPressed: product.toggleFavorite,
-              icon: Icon(
-                  product.isFavorite ? Icons.favorite : Icons.favorite_border),
-              color: Theme.of(context).colorScheme.secondary,
+            leading: Consumer<Product>(
+              builder: (ctx, product, _) => IconButton(
+                //O parâmetro _ pode ser substituído como
+                //body, preenchendo assim o componente com
+                //algo que sirva para preenche-lo
+                onPressed: product.toggleFavorite,
+                icon: Icon(product.isFavorite
+                    ? Icons.favorite
+                    : Icons.favorite_border),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
             trailing: IconButton(
               onPressed: () {},
