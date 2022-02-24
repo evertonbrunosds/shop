@@ -28,7 +28,7 @@ class ProductItem extends StatelessWidget {
           ),
           footer: GridTileBar(
             title: Text(
-              product.title,
+              product.name,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 10,
