@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/components/badge.dart';
 import '../components/product_grid.dart';
 
 enum FilterOptions { favorite, all }
@@ -19,20 +20,33 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         title: const Text('Minha Loja'),
         centerTitle: true,
         actions: [
+          Badge(
+            value: '2',
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.shopping_cart),
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
           PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
-              itemBuilder: (_) => [
-                    const PopupMenuItem(
-                      child: Text('Somente Favoritos'),
-                      value: FilterOptions.favorite,
-                    ),
-                    const PopupMenuItem(
-                      child: Text('Todos'),
-                      value: FilterOptions.all,
-                    ),
-                  ],
-              onSelected: (final FilterOptions selectedValue) => setState(() =>
-                  _showFavoriteOnly = FilterOptions.favorite == selectedValue))
+            color: Theme.of(context).colorScheme.secondary,
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                child: Text('Somente Favoritos'),
+                value: FilterOptions.favorite,
+              ),
+              const PopupMenuItem(
+                child: Text('Todos'),
+                value: FilterOptions.all,
+              ),
+            ],
+            onSelected: (final FilterOptions selectedValue) => setState(() =>
+                _showFavoriteOnly = FilterOptions.favorite == selectedValue),
+          ),
         ],
       ),
       body: ProductGrid(showFavoriteOnly: _showFavoriteOnly),

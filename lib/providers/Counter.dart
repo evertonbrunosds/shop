@@ -1,11 +1,10 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart' show BuildContext, InheritedWidget, Key, Widget;
 
-/**
- * CLASSE ÚTIL NA DEMONSTRAÇÃO DO COMPARTILHAMENTO
- * DE ESTADO SEM QUE SEJA NECESSÁRIO TRANSMITI-LO
- * DE FORMAS DIRETAS E INDIRETAS ATRAVÉS DE DIVERSOS
- * COMPONENTES DA ÁRVORE
- */
+//  CLASSE ÚTIL NA DEMONSTRAÇÃO DO COMPARTILHAMENTO
+//  DE ESTADO SEM QUE SEJA NECESSÁRIO TRANSMITI-LO
+//  DE FORMAS DIRETAS E INDIRETAS ATRAVÉS DE DIVERSOS
+//  COMPONENTES DA ÁRVORE
 class CounterState {
   int _value = 0;
   void inc() => _value++;

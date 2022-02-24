@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/utils/app_routes.dart';
 import '../models/Product.dart';
+import '../models/cart.dart';
 
 class ProductItem extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final Product product = Provider.of<Product>(
+      context,
+      //POSSIBILITA ATUALIZAR TRECHOS ESPECÍFICOS
+      // DA INTERFACE AO INVÉS DE TODA ELA
+      listen: false,
+    );
+    final Cart cart = Provider.of<Cart>(
       context,
       //POSSIBILITA ATUALIZAR TRECHOS ESPECÍFICOS
       // DA INTERFACE AO INVÉS DE TODA ELA
@@ -44,11 +51,11 @@ class ProductItem extends StatelessWidget {
                 icon: Icon(elementProduct.isFavorite
                     ? Icons.favorite
                     : Icons.favorite_border),
-                color: Theme.of(context).colorScheme.secondary,
+                color: elementProduct.isFavorite ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.secondary,
               ),
             ),
             trailing: IconButton(
-              onPressed: () {},
+              onPressed: () => cart.addItem(product),
               icon: const Icon(Icons.shopping_cart),
               color: Theme.of(context).colorScheme.secondary,
             ),
