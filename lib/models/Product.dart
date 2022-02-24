@@ -1,4 +1,7 @@
-class Product {
+// ignore_for_file: file_names
+import 'package:flutter/material.dart' show ChangeNotifier;
+
+class Product with ChangeNotifier {
   final String id;
   final String title;
   final String description;
@@ -17,8 +20,10 @@ class Product {
     _isFavorite = isFavorite;
   }
 
-  void toogleFavorite() => _isFavorite = !_isFavorite;
+  void toggleFavorite() {
+    _isFavorite = !_isFavorite;
+    notifyListeners();
+  }
 
   bool get isFavorite => _isFavorite;
-
 }
