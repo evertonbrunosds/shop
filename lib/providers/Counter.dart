@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
-import 'package:flutter/material.dart' show BuildContext, InheritedWidget, Key, Widget;
+import 'package:flutter/material.dart'
+    show BuildContext, InheritedWidget, Key, Widget;
 
 //  CLASSE ÚTIL NA DEMONSTRAÇÃO DO COMPARTILHAMENTO
 //  DE ESTADO SEM QUE SEJA NECESSÁRIO TRANSMITI-LO

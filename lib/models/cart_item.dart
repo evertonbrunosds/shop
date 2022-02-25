@@ -11,6 +11,5 @@ class CartItem {
     required final this.name,
     required final this.quantity,
     required final this.price,
-  }
-  );
+  });
 }

@@ -12,17 +12,24 @@ class AppDrawer extends StatelessWidget {
       child: Column(children: [
         AppBar(
           title: const Text('Bem vindo - User'),
+          automaticallyImplyLeading: false,
         ),
         const Divider(),
         ListTile(
-          leading: Icon(Icons.shop, color: colorScheme.primary,),
+          leading: Icon(
+            Icons.shop,
+            color: colorScheme.primary,
+          ),
           title: const Text('Loja'),
           onTap: () =>
               Navigator.of(context).pushReplacementNamed(AppRoutes.HOME),
         ),
         const Divider(),
         ListTile(
-          leading: Icon(Icons.payment, color: colorScheme.primary,),
+          leading: Icon(
+            Icons.payment,
+            color: colorScheme.primary,
+          ),
           title: const Text('Pedidos'),
           onTap: () =>
               Navigator.of(context).pushReplacementNamed(AppRoutes.ORDERS),

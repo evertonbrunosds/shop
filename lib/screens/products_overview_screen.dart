@@ -31,7 +31,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 onPressed: () =>
                     Navigator.of(context).pushNamed(AppRoutes.CART),
                 icon: const Icon(Icons.shopping_cart),
-                color: colorScheme.secondary,
               ),
               builder: (ctx, cartElement, child) => Badge(
                     value: cartElement.itensCount,
@@ -39,10 +38,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   )),
           PopupMenuButton(
             color: colorScheme.primaryContainer,
-            icon: Icon(
-              Icons.more_vert,
-              color: colorScheme.secondary,
-            ),
+            icon: const Icon(Icons.more_vert),
             itemBuilder: (_) => [
               const PopupMenuItem(
                 child: Text('Somente Favoritos'),

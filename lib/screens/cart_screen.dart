@@ -48,8 +48,7 @@ class CartScreen extends StatelessWidget {
                   TextButton(
                     child: const Text('COMPRAR'),
                     style: TextButton.styleFrom(
-                      textStyle: TextStyle(
-                          color: colorScheme.primary),
+                      textStyle: TextStyle(color: colorScheme.primary),
                     ),
                     onPressed: () {
                       Provider.of<OrderList>(

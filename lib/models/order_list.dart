@@ -23,5 +23,4 @@ class OrderList with ChangeNotifier {
     );
     notifyListeners();
   }
-
 }
