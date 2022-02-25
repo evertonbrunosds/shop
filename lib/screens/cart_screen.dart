@@ -4,6 +4,7 @@ import 'package:shop/components/cart_item_widget.dart';
 import 'package:shop/models/order_list.dart';
 
 import '../models/cart.dart';
+import '../utils/app_routes.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -51,11 +52,15 @@ class CartScreen extends StatelessWidget {
                       textStyle: TextStyle(color: colorScheme.primary),
                     ),
                     onPressed: () {
-                      Provider.of<OrderList>(
-                        context,
-                        listen: false,
-                      ).addOrder(cart: cart);
-                      cart.clearItens();
+                      if (cart.isNotEmpty) {
+                        Provider.of<OrderList>(
+                          context,
+                          listen: false,
+                        ).addOrder(cart: cart);
+                        cart.clearItens();
+                        Navigator.of(context)
+                            .pushReplacementNamed(AppRoutes.ORDERS);
+                      }
                     },
                   ),
                 ],

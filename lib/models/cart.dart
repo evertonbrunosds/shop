@@ -52,4 +52,6 @@ class Cart with ChangeNotifier {
   Map<String, CartItem> get itens => {..._itens};
 
   int get itensCount => _itens.length;
+
+  bool get isNotEmpty => _itens.isNotEmpty;
 }

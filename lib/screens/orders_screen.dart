@@ -17,9 +17,12 @@ class OrdersScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: colorScheme.secondary),
       ),
       drawer: const AppDrawer(),
-      body: ListView.builder(
-        itemCount: orders.itensCount,
-        itemBuilder: (ctx, index) => OrderWidget(order: orders.itens[index]),
+      body: Container(
+        color: colorScheme.primaryContainer,
+        child: ListView.builder(
+          itemCount: orders.itensCount,
+          itemBuilder: (ctx, index) => OrderWidget(order: orders.itens[index]),
+        ),
       ),
     );
   }
