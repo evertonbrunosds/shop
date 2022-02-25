@@ -5,7 +5,7 @@ import 'package:shop/models/cart.dart';
 import 'package:shop/models/order.dart';
 
 class OrderList with ChangeNotifier {
-  List<Order> _itens = [];
+  final List<Order> _itens = [];
 
   List<Order> get itens => [..._itens];
 
