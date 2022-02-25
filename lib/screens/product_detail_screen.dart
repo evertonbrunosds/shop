@@ -7,9 +7,11 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Exemplo contador'),
+        title: const Text('Detalhes de Produto'),
       ),
-      body: Container(),
+      body: Container(
+        color: Theme.of(context).colorScheme.primaryContainer,
+      ),
     );
   }
 }

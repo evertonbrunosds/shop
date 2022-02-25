@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/components/badge.dart';
+import 'package:shop/utils/app_routes.dart';
 import '../components/product_grid.dart';
+import '../models/cart.dart';
 
 enum FilterOptions { favorite, all }
 
@@ -20,16 +23,19 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         title: const Text('Minha Loja'),
         centerTitle: true,
         actions: [
-          Badge(
-            value: '2',
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.shopping_cart),
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ),
+          Consumer<Cart>(
+              child: IconButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.CART),
+                icon: const Icon(Icons.shopping_cart),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              builder: (ctx, cartElement, child) => Badge(
+                    value: cartElement.itensCount,
+                    child: child!,
+                  )),
           PopupMenuButton(
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.primaryContainer,
             icon: Icon(
               Icons.more_vert,
               color: Theme.of(context).colorScheme.secondary,
