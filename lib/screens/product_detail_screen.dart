@@ -10,7 +10,7 @@ class ProductDetailScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes de Produto'),
+        title: Text('Café ${product.name} - Detalhes:'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -25,7 +25,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'R\$ ${product.price}',
+              'R\$ ${product.price.toStringAsFixed(2)}',
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 20,

@@ -23,7 +23,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: colorScheme.secondary),
-        title: const Text('Minha Loja'),
+        title: const Text('Shopping Café'),
         centerTitle: true,
         actions: [
           Consumer<Cart>(
