@@ -21,6 +21,7 @@ class ProductItem extends StatelessWidget {
       // DA INTERFACE AO INVÉS DE TODA ELA
       listen: false,
     );
+    final colorScheme = Theme.of(context).colorScheme;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
@@ -52,14 +53,14 @@ class ProductItem extends StatelessWidget {
                     ? Icons.favorite
                     : Icons.favorite_border),
                 color: elementProduct.isFavorite
-                    ? Theme.of(context).colorScheme.error
-                    : Theme.of(context).colorScheme.secondary,
+                    ? colorScheme.error
+                    : colorScheme.secondary,
               ),
             ),
             trailing: IconButton(
               onPressed: () => cart.addItem(product),
               icon: const Icon(Icons.shopping_cart),
-              color: Theme.of(context).colorScheme.secondary,
+              color: colorScheme.secondary,
             ),
           ),
         ),

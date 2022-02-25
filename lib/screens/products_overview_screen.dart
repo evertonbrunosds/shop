@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/components/app_drawer.dart';
 import 'package:shop/components/badge.dart';
 import 'package:shop/utils/app_routes.dart';
 import '../components/product_grid.dart';
@@ -18,8 +19,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showFavoriteOnly = false;
   @override
   Widget build(final BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: colorScheme.secondary),
         title: const Text('Minha Loja'),
         centerTitle: true,
         actions: [
@@ -28,17 +31,17 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 onPressed: () =>
                     Navigator.of(context).pushNamed(AppRoutes.CART),
                 icon: const Icon(Icons.shopping_cart),
-                color: Theme.of(context).colorScheme.secondary,
+                color: colorScheme.secondary,
               ),
               builder: (ctx, cartElement, child) => Badge(
                     value: cartElement.itensCount,
                     child: child!,
                   )),
           PopupMenuButton(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: colorScheme.primaryContainer,
             icon: Icon(
               Icons.more_vert,
-              color: Theme.of(context).colorScheme.secondary,
+              color: colorScheme.secondary,
             ),
             itemBuilder: (_) => [
               const PopupMenuItem(
@@ -56,6 +59,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       body: ProductGrid(showFavoriteOnly: _showFavoriteOnly),
+      drawer: const AppDrawer(),
     );
   }
 }

@@ -13,11 +13,12 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Dismissible(
       key: ValueKey(cartItem.id),
       direction: DismissDirection.endToStart,
       background: Container(
-        color: Theme.of(context).colorScheme.error,
+        color: colorScheme.error,
         child: const Icon(
           Icons.delete,
           color: Colors.white,
@@ -36,7 +37,7 @@ class CartItemWidget extends StatelessWidget {
         child: ListTile(
           title: Text(cartItem.name),
           leading: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: FittedBox(
