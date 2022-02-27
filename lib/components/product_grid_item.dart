@@ -6,7 +6,7 @@ import 'package:shop/utils/app_routes.dart';
 import '../models/Product.dart';
 import '../models/cart.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductGridItem extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final Product product = Provider.of<Product>(
@@ -58,9 +58,24 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             trailing: IconButton(
-              onPressed: () => cart.addItem(product),
               icon: const Icon(Icons.shopping_cart),
               color: colorScheme.secondary,
+              onPressed: () {
+                cart.addItem(product);
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${product.name} adicionado a lista de desejos.'),
+                    duration: const Duration(seconds: 2),
+                    backgroundColor: colorScheme.primary,
+                    action: SnackBarAction(
+                      label: 'DESFAZER',
+                      onPressed: () => cart.removeSingleItem(product.id),
+                      textColor: colorScheme.error,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
