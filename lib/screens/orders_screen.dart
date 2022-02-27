@@ -13,6 +13,7 @@ class OrdersScreen extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Meus Pedidos'),
         iconTheme: IconThemeData(color: colorScheme.secondary),
       ),
