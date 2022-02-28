@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/models/Product.dart';
+import 'package:shop/models/product_list.dart';
 import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
@@ -34,7 +36,47 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog<bool>(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    backgroundColor: colorScheme.primary,
+                    title: const Text(
+                      'Excluir Produto',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    content: const Text(
+                      'Tem certeza?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(ctx).pop(false),
+                        child: Text(
+                          'Não',
+                          style: TextStyle(color: colorScheme.secondary),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop(true);
+                        },
+                        child: Text(
+                          'Sim',
+                          style: TextStyle(color: colorScheme.error),
+                        ),
+                      ),
+                    ],
+                  ),
+                ).then((value) {
+                  if (value ?? false) {
+                    Provider.of<ProductList>(
+                      context,
+                      listen: false,
+                    ).removeProduct(product);
+                  }
+                });
+              },
               icon: Icon(
                 Icons.delete,
                 color: colorScheme.primary,

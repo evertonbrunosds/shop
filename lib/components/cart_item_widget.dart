@@ -32,7 +32,7 @@ class CartItemWidget extends StatelessWidget {
         return showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            backgroundColor: Colors.brown,
+            backgroundColor: colorScheme.primary,
             title: const Text(
               'Tem Certeza?',
               style: TextStyle(color: Colors.white),
