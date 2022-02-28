@@ -65,7 +65,8 @@ class ProductGridItem extends StatelessWidget {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('${product.name} adicionado a lista de desejos.'),
+                    content:
+                        Text('${product.name} adicionado a lista de desejos.'),
                     duration: const Duration(seconds: 2),
                     backgroundColor: colorScheme.primary,
                     action: SnackBarAction(

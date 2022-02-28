@@ -20,7 +20,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showFavoriteOnly = false;
   bool _isLoading = true;
 
-   @override
+  @override
   void initState() {
     super.initState();
     Provider.of<ProductList>(
