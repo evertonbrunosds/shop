@@ -112,19 +112,20 @@ class _ProductFromScreenState extends State<ProductFromScreen> {
         child: _isLoading
             ? Center(
                 child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Processando... Aguarde!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorScheme.primary,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Processando... Aguarde!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: colorScheme.primary,
+                      ),
                     ),
-                  ),
-                  const Divider(),
-                  const CircularProgressIndicator(),
-                ],
-              ))
+                    const Divider(),
+                    const CircularProgressIndicator(),
+                  ],
+                ),
+              )
             : Padding(
                 padding: const EdgeInsets.all(15),
                 child: Form(
