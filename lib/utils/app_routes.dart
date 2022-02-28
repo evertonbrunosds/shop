@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import '../screens/cart_screen.dart';
 import '../screens/orders_screen.dart';
 import '../screens/product_detail_screen.dart';
