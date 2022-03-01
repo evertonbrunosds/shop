@@ -7,6 +7,7 @@ import '../models/Product.dart';
 import '../models/cart.dart';
 
 class ProductGridItem extends StatelessWidget {
+
   @override
   Widget build(final BuildContext context) {
     final Product product = Provider.of<Product>(

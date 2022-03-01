@@ -30,9 +30,9 @@ final dummyProducts = [
   ),
   Product(
     id: 'p4',
-    name: 'Barriado',
+    name: 'Cafe',
     description:
-        'Este café que para ser ruim precisa melhorar muito é incrivelmente barato, mesmo na crise seu preço permanece invicto, prove do cafezão da massa.',
+        'Este café que para ser ruim precisa melhorar muito é incrivelmente barato, mesmo na crise seu preço permanece invicto, prove do cafe da massa.',
     price: 1.20,
     imageUrl:
         'https://media.istockphoto.com/photos/scattered-roasted-coffee-beans-around-a-wooden-barrel-picture-id503013771',

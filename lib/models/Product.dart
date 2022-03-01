@@ -1,10 +1,8 @@
 // ignore_for_file: file_names
-import 'dart:convert';
-
+import 'dart:convert' show jsonEncode;
 import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:http/http.dart' as http;
 import 'package:shop/exceptions/http_exception.dart';
-
 import '../utils/constants.dart';
 
 class Product with ChangeNotifier {
@@ -34,7 +32,7 @@ class Product with ChangeNotifier {
   Future<void> toggleFavorite() async {
     try{_toggleFavorite();
     final response = await http.patch(
-      Uri.parse('${Constants.PRODUCT_BASE_URL}/$id.json'),
+      Uri.parse('${Constants.productBaseUrl}/$id.json'),
       body: jsonEncode({'isFavorite': isFavorite}),
     );
     if (response.statusCode >= 400) {
