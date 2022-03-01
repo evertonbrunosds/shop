@@ -48,7 +48,18 @@ class ProductGridItem extends StatelessWidget {
                 //O parâmetro _ pode ser substituído como
                 //body, preenchendo assim o componente com
                 //algo que sirva para preenche-lo
-                onPressed: elementProduct.toggleFavorite,
+                onPressed: () {
+                  elementProduct.toggleFavorite().catchError((error) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(error.toString()),
+                        duration: const Duration(seconds: 5),
+                        backgroundColor: colorScheme.primary,
+                      ),
+                    );
+                  });
+                },
                 icon: Icon(elementProduct.isFavorite
                     ? Icons.favorite
                     : Icons.favorite_border),

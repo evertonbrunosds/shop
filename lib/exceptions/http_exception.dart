@@ -4,7 +4,7 @@ class HttpException implements Exception {
 
   HttpException({
     required this.msg,
-    required this.statusCode,
+    this.statusCode = 0,
   });
 
   @override

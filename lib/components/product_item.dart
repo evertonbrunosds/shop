@@ -78,9 +78,12 @@ class ProductItem extends StatelessWidget {
                         listen: false,
                       ).removeProduct(product);
                     } on HttpException catch (error) {
-                      msg.showSnackBar(
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(error.toString()),
+                          duration: const Duration(seconds: 5),
+                          backgroundColor: colorScheme.primary,
                         ),
                       );
                     }
