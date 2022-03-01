@@ -20,13 +20,25 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showFavoriteOnly = false;
   bool _isLoading = true;
 
+  ColorScheme _colorScheme(final BuildContext context) =>
+      Theme.of(context).colorScheme;
+
   @override
   void initState() {
     super.initState();
     Provider.of<ProductList>(
       context,
       listen: false,
-    ).loadProducts().then((value) {
+    ).loadProducts().catchError((error) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Sem conexão com a Internet.'),
+          duration: const Duration(seconds: 5),
+          backgroundColor: _colorScheme(context).primary,
+        ),
+      );
+    }).then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -35,10 +47,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   Widget build(final BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: colorScheme.secondary),
+        iconTheme: IconThemeData(color: _colorScheme(context).secondary),
         title: const Text('Shopping Café'),
         centerTitle: true,
         actions: [
@@ -53,7 +64,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                     child: child!,
                   )),
           PopupMenuButton(
-            color: colorScheme.primaryContainer,
+            color: _colorScheme(context).primaryContainer,
             icon: const Icon(Icons.more_vert),
             itemBuilder: (_) => [
               const PopupMenuItem(
@@ -79,7 +90,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                     'Processando... Aguarde!',
                     style: TextStyle(
                       fontSize: 20,
-                      color: colorScheme.primary,
+                      color: _colorScheme(context).primary,
                     ),
                   ),
                   const Divider(),
