@@ -23,26 +23,29 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   ColorScheme _colorScheme(final BuildContext context) =>
       Theme.of(context).colorScheme;
 
+  Future<void> _refreshProducts(final BuildContext context) =>
+      Provider.of<ProductList>(
+        context,
+        listen: false,
+      ).loadProducts().catchError((error) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Sem conexão com a Internet.'),
+            duration: const Duration(seconds: 5),
+            backgroundColor: _colorScheme(context).primary,
+          ),
+        );
+      }).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductList>(
-      context,
-      listen: false,
-    ).loadProducts().catchError((error) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Sem conexão com a Internet.'),
-          duration: const Duration(seconds: 5),
-          backgroundColor: _colorScheme(context).primary,
-        ),
-      );
-    }).then((value) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    _refreshProducts(context);
   }
 
   @override
@@ -81,24 +84,27 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           ),
         ],
       ),
-      body: _isLoading
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Processando... Aguarde!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: _colorScheme(context).primary,
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: _isLoading
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Processando... Aguarde!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: _colorScheme(context).primary,
+                      ),
                     ),
-                  ),
-                  const Divider(),
-                  const CircularProgressIndicator(),
-                ],
-              ),
-            )
-          : ProductGrid(showFavoriteOnly: _showFavoriteOnly),
+                    const Divider(),
+                    const CircularProgressIndicator(),
+                  ],
+                ),
+              )
+            : ProductGrid(showFavoriteOnly: _showFavoriteOnly),
+      ),
       drawer: const AppDrawer(),
     );
   }

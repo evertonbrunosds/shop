@@ -12,6 +12,13 @@ class ProductsScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     final products = Provider.of<ProductList>(context);
     final colorScheme = Theme.of(context).colorScheme;
+
+    Future<void> _refreshProducts(final BuildContext context) =>
+        Provider.of<ProductList>(
+          context,
+          listen: false,
+        ).loadProducts();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -28,15 +35,18 @@ class ProductsScreen extends StatelessWidget {
       drawer: const AppDrawer(),
       body: Container(
         color: Theme.of(context).colorScheme.primaryContainer,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ListView.builder(
-            itemCount: products.itensCount,
-            itemBuilder: (ctx, index) => Column(
-              children: [
-                ProductItem(product: products.itens[index]),
-                const Divider(),
-              ],
+        child: RefreshIndicator(
+          onRefresh: () => _refreshProducts(context),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: ListView.builder(
+              itemCount: products.itensCount,
+              itemBuilder: (ctx, index) => Column(
+                children: [
+                  ProductItem(product: products.itens[index]),
+                  const Divider(),
+                ],
+              ),
             ),
           ),
         ),
