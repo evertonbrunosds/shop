@@ -14,7 +14,6 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final msg = ScaffoldMessenger.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     return ListTile(
       title: Text(product.name),

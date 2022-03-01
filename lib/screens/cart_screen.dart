@@ -46,23 +46,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  TextButton(
-                    child: const Text('COMPRAR'),
-                    style: TextButton.styleFrom(
-                      textStyle: TextStyle(color: colorScheme.primary),
-                    ),
-                    onPressed: () {
-                      if (cart.isNotEmpty) {
-                        Provider.of<OrderList>(
-                          context,
-                          listen: false,
-                        ).addOrder(cart: cart);
-                        cart.clearItens();
-                        Navigator.of(context)
-                            .pushReplacementNamed(AppRoutes.ORDERS);
-                      }
-                    },
-                  ),
+                  CartButton(colorScheme: colorScheme, cart: cart),
                 ],
               ),
             ),
@@ -76,5 +60,45 @@ class CartScreen extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+class CartButton extends StatefulWidget {
+  const CartButton({
+    Key? key,
+    required this.colorScheme,
+    required this.cart,
+  }) : super(key: key);
+
+  final ColorScheme colorScheme;
+  final Cart cart;
+
+  @override
+  State<CartButton> createState() => _CartButtonState();
+}
+
+class _CartButtonState extends State<CartButton> {
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? const CircularProgressIndicator()
+        : TextButton(
+            child: const Text('COMPRAR'),
+            style: TextButton.styleFrom(
+              textStyle: TextStyle(color: widget.colorScheme.primary),
+            ),
+            onPressed: widget.cart.isNotEmpty
+                ? () async {
+                    setState(() => isLoading = true);
+                    await Provider.of<OrderList>(
+                      context,
+                      listen: false,
+                    ).addOrder(cart: widget.cart);
+                    widget.cart.clearItens();
+                    setState(() => isLoading = false);
+                  }
+                : null,
+          );
   }
 }
