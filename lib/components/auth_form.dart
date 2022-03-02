@@ -68,12 +68,14 @@ class _AuthFormState extends State<AuthForm> {
                   decoration:
                       const InputDecoration(labelText: 'Confirmar Senha'),
                   obscureText: true,
-                  validator: (_password) {
-                    final password = _password ?? '';
-                    return password != _passwordController.text
-                        ? 'As senhas informadas não conferem!'
-                        : null;
-                  },
+                  validator: _signMode == SignMode.signIn
+                      ? null
+                      : (_password) {
+                          final password = _password ?? '';
+                          return password != _passwordController.text
+                              ? 'As senhas informadas não conferem!'
+                              : null;
+                        },
                 ),
               const SizedBox(height: 20),
               ElevatedButton(
