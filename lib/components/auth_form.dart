@@ -1,16 +1,7 @@
 // ignore_for_file: slash_for_doc_comments
 import 'package:flutter/material.dart';
 
-enum SignMode {
-  /**
-   * Refere-se ao valor de inscrição.
-   */
-  signUp,
-  /**
-   * Refere-se ao valor de entrada.
-   */
-  signIn,
-}
+import '../models/sign_mode.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({Key? key}) : super(key: key);
@@ -21,10 +12,30 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _passwordController = TextEditingController();
-  final SignMode _signMode = SignMode.signIn;
+  final _signMode = SignMode(state: SignState.signIn);
   final Map<String, String> _authData = {'email': '', 'password': ''};
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
-  void _submit() {}
+  void _submit() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (isValid) {
+      setState(() => _isLoading = true);
+      _formKey.currentState?.save();
+      if (_signMode.isSignIn) {
+        //signin
+      } else {
+        //signup
+      }
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void _switchAuthMode() {
+    setState(() {
+      _signMode.isSignIn ? _signMode.toSignUp() : _signMode.toSignIn();
+    });
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -35,9 +46,11 @@ class _AuthFormState extends State<AuthForm> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-          padding: const EdgeInsets.all(16),
-          height: 320,
-          width: deviceSize.width * 0.75,
+        padding: const EdgeInsets.all(16),
+        height: _signMode.isSignIn ? 320 : 400,
+        width: deviceSize.width * 0.75,
+        child: Form(
+          key: _formKey,
           child: Column(
             children: [
               TextFormField(
@@ -63,12 +76,12 @@ class _AuthFormState extends State<AuthForm> {
                       : null;
                 },
               ),
-              if (_signMode == SignMode.signUp)
+              if (_signMode.isSignUp)
                 TextFormField(
                   decoration:
                       const InputDecoration(labelText: 'Confirmar Senha'),
                   obscureText: true,
-                  validator: _signMode == SignMode.signIn
+                  validator: _signMode.isSignIn
                       ? null
                       : (_password) {
                           final password = _password ?? '';
@@ -78,23 +91,34 @@ class _AuthFormState extends State<AuthForm> {
                         },
                 ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submit,
-                child: _signMode == SignMode.signIn
-                    ? const Text('ENTRAR')
-                    : const Text('REGISTRAR'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 8,
-                  ),
-                ),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _submit,
+                      child: _signMode.isSignIn
+                          ? const Text('ENTRAR')
+                          : const Text('CADASTRAR-SE'),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 8,
+                        ),
+                      ),
+                    ),
+              const Spacer(),
+              TextButton(
+                onPressed: _switchAuthMode,
+                child: Text(_signMode.isSignIn
+                    ? 'DESEJA CADASTRAR-SE?'
+                    : 'JÁ POSSUI CADASTRO?'),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
