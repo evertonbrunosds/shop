@@ -1,5 +1,8 @@
 // ignore_for_file: slash_for_doc_comments
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/exceptions/auth_exception.dart';
+import 'package:shop/models/auth.dart';
 
 import '../models/sign_mode.dart';
 
@@ -17,17 +20,48 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  void _submit() {
+  void _showErrorDialog(
+      {String title = 'Ocorreu um Erro', required String msg}) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(title),
+        content: Text(msg),
+        actions: [
+          TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: const Text('Ok!'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (isValid) {
       setState(() => _isLoading = true);
       _formKey.currentState?.save();
-      if (_signMode.isSignIn) {
-        //signin
-      } else {
-        //signup
+      final auth = Provider.of<Auth>(context, listen: false);
+      try {
+        if (_signMode.isSignIn) {
+          await auth.signIn(
+            email: _authData['email']!,
+            password: _authData['password']!,
+          );
+        } else {
+          await auth.signUp(
+            email: _authData['email']!,
+            password: _authData['password']!,
+          );
+        }
+      } on AuthException catch (ex) {
+        _showErrorDialog(msg: ex.toString());
+      } catch (ex) {
+        _showErrorDialog(msg: 'Erro Inesperado!');
+      } finally {
+        setState(() => _isLoading = false);
       }
-      setState(() => _isLoading = false);
     }
   }
 
