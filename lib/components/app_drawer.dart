@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
             Icons.payment,
             color: colorScheme.primary,
           ),
-          title: const Text('Pedidos'),
+          title: const Text('Meus Pedidos'),
           onTap: () =>
               Navigator.of(context).pushReplacementNamed(AppRoutes.ORDERS),
         ),

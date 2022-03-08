@@ -29,19 +29,21 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
-    try{_toggleFavorite();
-    final response = await http.patch(
-      Uri.parse('${Constants.productBaseUrl}/$id.json'),
-      body: jsonEncode({'isFavorite': isFavorite}),
-    );
-    if (response.statusCode >= 400) {
+  Future<void> toggleFavorite(final String token) async {
+    try {
       _toggleFavorite();
-      throw HttpException(
-        msg: 'Sem conexão com a Internet.',
-        statusCode: response.statusCode,
+      final response = await http.patch(
+        Uri.parse('${Constants.productBaseUrl}/$id.json?auth=$token'),
+        body: jsonEncode({'isFavorite': isFavorite}),
       );
-    }} catch (error) {
+      if (response.statusCode >= 400) {
+        _toggleFavorite();
+        throw HttpException(
+          msg: 'Sem conexão com a Internet.',
+          statusCode: response.statusCode,
+        );
+      }
+    } catch (error) {
       _toggleFavorite();
       throw HttpException(
         msg: 'Sem conexão com a Internet.',

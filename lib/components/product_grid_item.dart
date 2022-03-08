@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/models/auth.dart';
 import 'package:shop/utils/app_routes.dart';
-import '../models/Product.dart';
+import '../models/product.dart';
 import '../models/cart.dart';
 
 class ProductGridItem extends StatelessWidget {
-
   @override
   Widget build(final BuildContext context) {
     final Product product = Provider.of<Product>(
@@ -22,6 +22,7 @@ class ProductGridItem extends StatelessWidget {
       // DA INTERFACE AO INVÉS DE TODA ELA
       listen: false,
     );
+    final auth = Provider.of<Auth>(context, listen: false);
     final colorScheme = Theme.of(context).colorScheme;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -50,7 +51,9 @@ class ProductGridItem extends StatelessWidget {
                 //body, preenchendo assim o componente com
                 //algo que sirva para preenche-lo
                 onPressed: () {
-                  elementProduct.toggleFavorite().catchError((error) {
+                  elementProduct
+                      .toggleFavorite(auth.token ?? '')
+                      .catchError((error) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
