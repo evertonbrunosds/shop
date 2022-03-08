@@ -8,8 +8,15 @@ import '../utils/constants.dart';
 
 class ProductList with ChangeNotifier {
   final List<Product> _itens = [];
+  String _token = '';
 
   List<Product> get itens => [..._itens];
+
+  ProductList({required String token, required List<Product> itens}) {
+    _token = token;
+    _itens.clear();
+    _itens.addAll(itens);
+  }
 
   List<Product> get favoriteItens =>
       _itens.where((product) => product.isFavorite).toList();
@@ -34,7 +41,8 @@ class ProductList with ChangeNotifier {
 
   Future<void> loadProducts() async {
     _itens.clear();
-    final response = await http.get(Uri.parse('${Constants.productBaseUrl}.json'));
+    final response = await http
+        .get(Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'));
     if (response.body != 'null') {
       Map<String, dynamic> data = jsonDecode(response.body);
       data.forEach((productId, productData) {
@@ -55,7 +63,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(final Product product) async {
     final response = await http.post(
-      Uri.parse('${Constants.productBaseUrl}.json'),
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
       body: jsonEncode(
         {
           'name': product.name,
@@ -84,7 +92,8 @@ class ProductList with ChangeNotifier {
     int index = _itens.indexWhere((p) => p.id == product.id);
     if (index >= 0) {
       await http.patch(
-        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.productBaseUrl}/${product.id}.json?auth=$_token'),
         body: jsonEncode(
           {
             'name': product.name,
@@ -106,7 +115,8 @@ class ProductList with ChangeNotifier {
       _itens.remove(product);
       notifyListeners();
       final response = await http.delete(
-        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.productBaseUrl}/${product.id}.json?auth=$_token'),
       );
       if (response.statusCode >= 400) {
         _itens.insert(index, product);
