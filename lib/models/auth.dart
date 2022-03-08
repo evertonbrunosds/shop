@@ -8,7 +8,7 @@ class Auth with ChangeNotifier {
   String get _key => 'AIzaSyCZRuGItyD4yPjTF9Pz8XM2UMFxXk_QjHw';
   String? _token;
   String? _email;
-  String? _uid;
+  String? _userId;
   DateTime? _expiryDate;
 
   bool get isAuth {
@@ -20,7 +20,7 @@ class Auth with ChangeNotifier {
 
   String? get email => isAuth ? _email : null;
 
-  String? get uid => isAuth ? _uid : null;
+  String? get userId => isAuth ? _userId : null;
 
   Future<void> _authentication(
     String email,
@@ -42,7 +42,7 @@ class Auth with ChangeNotifier {
     } else {
       _token = body['idToken'];
       _email = body['email'];
-      _uid = body['localId'];
+      _userId = body['localId'];
       _expiryDate = DateTime.now().add(
         Duration(
           seconds: int.parse(body['expiresIn']),

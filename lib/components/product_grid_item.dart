@@ -52,7 +52,7 @@ class ProductGridItem extends StatelessWidget {
                 //algo que sirva para preenche-lo
                 onPressed: () {
                   elementProduct
-                      .toggleFavorite(auth.token ?? '')
+                      .toggleFavorite(auth.token ?? '', auth.userId ?? '')
                       .catchError((error) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
