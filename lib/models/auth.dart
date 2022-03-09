@@ -22,6 +22,14 @@ class Auth with ChangeNotifier {
 
   String? get userId => isAuth ? _userId : null;
 
+  void signOut() {
+    _token = null;
+    _email = null;
+    _userId = null;
+    _expiryDate = null;
+    notifyListeners();
+  }
+
   Future<void> _authentication(
     String email,
     String password,
