@@ -23,7 +23,7 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,8 @@ class AuthScreen extends StatelessWidget {
                     horizontal: 70,
                   ),
                   //USO DE CASCADE OPERATOR
-                  transform: Matrix4.rotationZ(-8 * pi / 180),//..translate(-10.0),
+                  transform:
+                      Matrix4.rotationZ(-8 * pi / 180), //..translate(-10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.deepOrange[900],
