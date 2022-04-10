@@ -1,5 +1,6 @@
 import '../models/product.dart';
 
+@deprecated
 final dummyProducts = [
   Product(
     id: 'p1',
